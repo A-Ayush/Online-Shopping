@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyparser = require('body-parser');
-const router = require('./router/routing');
+// const router = require('./router/routing');
 const create = require('./model/dbSetup');
 
 const port = 3001;
@@ -9,7 +9,7 @@ const port = 3001;
 
 app.use( bodyparser.json() );
 app.use( bodyparser.urlencoded( { extended: true } ) );
-app.use( '/user', router );
+// app.use( '/product', router );
 
 
 
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-app.get('/user/setupDB', async ( req,res,next ) => {
+app.get('/product/setupDB', async ( req,res,next ) => {
     try{
         let response = await create.setupDB();
         if(response){
