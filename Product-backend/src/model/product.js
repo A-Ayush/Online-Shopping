@@ -19,19 +19,31 @@ product.fetctProductsDetails = async ( prodId ) => {
     }else{
         let err = new Error("No such product");
         err.status = 500;
-        throw error;
+        throw err;
     }
 }
 
-product.fetchSellerByName = async ( prodname ) => {
+product.fetchproductByName = async ( prodname ) => {
     let model = await collection.getCollection();
-    let data = await model.find( { "pName": { "$regex": `${prodname}`, $option: "i" } } );
+    let data = await model.find( { "pName": prodname } );
     if(data.length < 1){
         let err = new Error("No such product is present");
         err.status = 500;
-        throw error;
+        throw err;
     }else{
         return data;
+    }
+}
+
+product.fetchproductByCategory = async ( category ) => {
+    let model = await collection.getCollection();
+    let data = await model.find({ "pCategory": category });
+    if( data.length > 0 ){
+        return data;
+    }else{
+        let err = new Error("No such product's category is present");
+        err.status = 500;
+        throw err;
     }
 }
 
