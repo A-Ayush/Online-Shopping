@@ -6,30 +6,25 @@ mongoose.set('useCreateIndex',true);
 
 const url = "mongodb://localhost:27017/UserDB";
 
-const productSchema = Schema({
-    prodId: { type: String, required: [ true, 'prodId is required' ] },
-    pName: { type: String, required: [ true, 'porduct Name is required' ] },
-    pDescription: { type: String, required: [ true, ' product Description is required' ] },
-    pRating: { type: Number, required: [ true, ' product Rating is required' ] },
-    pCategory: { type: String, required: [ true, 'product Category is required' ] },
-    pPrice: { type: Number , required: [ true, 'product price is required' ] },
-    pColor: { type:String, required: [ true, 'color is required' ] },
-    pImage: { type:String, required: [ true, 'image is required' ] },
-    specification: { type:String, default: "" },
-    pSeller: {
-        sId: { type: String, required: [ true, 'sId is required'] },
-        pDiscount: { type: Number, required: [ true, 'product Discount is required' ] },
-        pQuantity: { type: Number, required: [ true, 'product Quantity is required' ] },
-        pShippingCharges: { type: Number, required: [ true, 'product Shipping is required' ] }
-    }
-}, { collection: "Products", timestamps:true })
+const sellerSchema = Schema({
+    emailId: { type:String, required: [ true, 'emailId is required' ] },
+    name: { type:String, required: [ true, 'name is required' ] },
+    phoneNo: { type:Number, required: [ true, 'phone No is required' ] },
+    password: { type:String, required: [ true, 'password No is required' ] },
+    accountNo: { type:Number, required: [ true, 'account No is required' ] },
+    tanNo: { type:String, required: [ true, 'tan No is required' ] },
+    gstNo: { type:String, required: [ true, 'gst No is required' ] },
+    products: [ 
+        { type:String } 
+    ],
+}, { collection: "Sellers", timestamps:true })
 
 let connection = {}
 
 connection.getCollection = async () => {
     let connect = await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true } )
     if(connect){
-        let database = await connect.model('Products', productSchema);
+        let database = await connect.model('Sellers', sellerSchema);
         return database;
     }else{
         err = new Error("Could not connect to the database");
