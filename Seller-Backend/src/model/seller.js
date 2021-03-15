@@ -52,4 +52,16 @@ seller.getSellerDetails = async ( emailId ) => {
     }
 }
 
+seller.pushproductdetails = async ( emailId, product ) => {
+    const sellerColl = await collection.getCollection();
+    const data = await sellerColl.updateOne({ "emailId":emailId }, { $push: { products:product }  });
+    if( data.nModified == 1 ){
+        return true;
+    }else{
+        let err = new Error( 'Something went wrong!!' );
+        err.status = 404;
+        throw err;
+    }
+}
+
 module.exports = seller;
