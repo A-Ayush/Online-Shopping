@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-app.get('/product/setupDB', async ( req,res,next ) => {
+app.get('/seller/setupDB', async ( req,res,next ) => {
     try{
         let response = await create.setupDB();
         if(response){
