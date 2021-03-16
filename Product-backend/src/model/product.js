@@ -47,6 +47,38 @@ product.fetchproductByCategory = async ( category ) => {
     }
 }
 
+product.updateproductQuantity = async ( prodArr ) => {
+    let model = await collection.getCollection();
+    let update  = true;
+    for( let prod of prodArr ){
+        let prodId = prod.prodId;
+        let quantity = prod.quantity;
+        if( quantity > 0 ){
+            let initial_quant = await model.findOne( { prodId: prodId }, { "pSeller.pQuantity": 1, prodId: 0 } );
+            if( initial_quant.pSeller.pQuantity < quantity ){
+                let error = new Error( `Available quantity is less than ${quantity}`  )
+                error.status = 401;
+                throw error;
+            }
+            else{
+                let data = await model.updateOne( { prodId: prodId }, { $inc: { "pSeller.pQuantity": -quantity } } );
+                if( data.nModified == 1 ){
+                    return update;
+                }else{
+                    let error = new Error( 'something went wrong!!'  )
+                    error.status = 404;
+                    throw error;
+                }
+            }
+        }else{
+            let error = new Error( 'Quantity cant be less than zero!!'  )
+            error.status = 401;
+            throw error;
+        }
+    }
+}
+
+
 // product.addproduct = async ( productObj ) => {
 //     let model = await collection.getCollection();
 //     let prod = await model.find( { "pName": productObj.pName } );

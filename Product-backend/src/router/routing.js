@@ -30,4 +30,15 @@ routing.get('/productName/:prodname', async (req, res, next) => {
     }
 } )
 
+routing.put('/updatequantity', async ( req, res, next ) => {
+    try{
+        let data = await service.updateproductquantity( req.body );
+        if( data ){
+            res.json( "Successfully Updated" );
+        }
+    }catch( error ){
+        next( error );
+    }
+})
+
 module.exports = routing;

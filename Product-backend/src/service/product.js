@@ -17,4 +17,9 @@ product.fetchProductByCategory = async ( category ) => {
     return datatoShow;
 }
 
+product.updateproductquantity = async ( prod ) => {
+    let data = await dbLayer.updateproductQuantity( prod );
+    return data;
+}
+
 module.exports = product;
