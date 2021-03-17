@@ -50,10 +50,6 @@ product.fetchproductByCategory = async ( category ) => {
 product.updateproductQuantity = async ( prodArr ) => {
     let model = await collection.getCollection();
     let update  = true;
-    console.log(prodArr.length)
-    // for( let i of prodArr){
-    //     console.log("1",i.prodId)
-    // }
     for( let prod of prodArr ){
         let prodId = prod.prodId;
         let quantity = prod.quantity;
