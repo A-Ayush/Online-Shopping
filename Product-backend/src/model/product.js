@@ -50,11 +50,16 @@ product.fetchproductByCategory = async ( category ) => {
 product.updateproductQuantity = async ( prodArr ) => {
     let model = await collection.getCollection();
     let update  = true;
+    console.log(prodArr.length)
+    // for( let i of prodArr){
+    //     console.log("1",i.prodId)
+    // }
     for( let prod of prodArr ){
         let prodId = prod.prodId;
         let quantity = prod.quantity;
         if( quantity > 0 ){
-            let initial_quant = await model.findOne( { prodId: prodId }, { "pSeller.pQuantity": 1, prodId: 0 } );
+            let initial_quant = await model.findOne( { prodId: prodId }, { "pSeller.pQuantity": 1, _id:0 } );
+            console.log(initial_quant)
             if( initial_quant.pSeller.pQuantity < quantity ){
                 let error = new Error( `Available quantity is less than ${quantity}`  )
                 error.status = 401;
