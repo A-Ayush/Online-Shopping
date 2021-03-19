@@ -22,4 +22,9 @@ product.updateproductquantity = async ( prod ) => {
     return data;
 }
 
+product.addproduct = async ( prodDetails ) => {
+    let data = await dbLayer.addproduct( prodDetails );
+    return data;
+}
+
 module.exports = product;
