@@ -80,25 +80,25 @@ product.updateproductQuantity = async ( prodArr ) => {
 }
 
 
-product.addproduct = async ( productObj ) => {
-    let model = await collection.getCollection();
-    let prod = await model.find( { "pName": productObj.pName } );
-    if(prod == null){
-        let id = await product.generateId();
-        productObj.prodId = id;
-        if( data && data.length > 0 ){
-            return id;
-        }else{
-            let error = new Error( 'something went wrong!!'  )
-            error.status = 404;
-            throw error;
-        }
-    }else{
-        let error = new Error( 'Product is already present! you can add your quantity!!'  )
-        error.status = 404;
-        throw error;
-    }
-}
+// product.addproduct = async ( productObj ) => {
+//     let model = await collection.getCollection();
+//     let prod = await model.find( { "pName": productObj.pName } );
+//     if(prod == null){
+//         let id = await product.generateId();
+//         productObj.prodId = id;
+//         if( data && data.length > 0 ){
+//             return id;
+//         }else{
+//             let error = new Error( 'something went wrong!!'  )
+//             error.status = 404;
+//             throw error;
+//         }
+//     }else{
+//         let error = new Error( 'Product is already present! you can add your quantity!!'  )
+//         error.status = 404;
+//         throw error;
+//     }
+// }
 
 
 module.exports = product;
