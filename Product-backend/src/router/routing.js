@@ -41,6 +41,7 @@ routing.put('/updatequantity', async ( req, res, next ) => {
     }
 })
 
+//not in use
 // routing.post('/addproduct', async (req, res, next) => {
 //     try{
 //         let data = await service.addproduct( req,body );
